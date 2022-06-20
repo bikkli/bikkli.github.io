@@ -1,11 +1,5 @@
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  createPage({
-    path: "/",
-    component: require.resolve("./src/pages/index.js"),
-    context: {},
-    defer: true,
-  });
 
   const result = await graphql(`
     query {
@@ -20,10 +14,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
   createPage({
     path: "/wishlists",
-    component: require.resolve("./src/pages/wishlists.js"),
+    component: require.resolve("./src/components/wishlists.js"),
     context: {
-      data: result,
-      title: 'titleTest321'
+      wishlists: result.data.allSanityWishlist.nodes,
     },
     defer: true,
     data: result,
